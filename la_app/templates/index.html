@@ -6,8 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigma, simulacion</title>
     <link rel="stylesheet" href="/static/pico.css">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <p>Hola, {{ nombre }}</p>
+    <div class="container">
+        <h1>Simulador de enigma de un rotor</h1>
+        {% if get_flashed_messages() %}
+            {% for message in get_flashed_messages() %}
+                <p class="error">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <form action="/" method="post">
+            {{ formulario.hidden_tag() }}
+    
+            {{ formulario.texto_entrada.label}}
+            {{ formulario.texto_entrada(placeholder="introduce un texto") }}
+            {% for error in formulario.texto_entrada.errors %}
+                <p class="error">{{error}}</p>
+            {% endfor %}}
+    
+            {{ formulario.texto_salida.label}}
+            {{ formulario.texto_salida(disabled=True) }}
+
+            <div class="grid">
+                <label for="rotor1">
+                    {{ formulario.rotor1.label}}
+                    {{ formulario.rotor1() }}
+                </label>                
+                <label for="rotor1_ini">
+                    {{ formulario.rotor1_ini.label}}
+                    {{ formulario.rotor1_ini() }}
+                </label>                
+            </div>
+    
+            {{ formulario.reflector.label}}
+            {{ formulario.reflector() }}
+
+            {{ formulario.aceptar()}}
+        </form>
+    </div>
 </body>
 </html>
